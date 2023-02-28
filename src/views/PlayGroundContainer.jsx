@@ -4,6 +4,8 @@ import { Box, Grid } from "@mui/material";
 import ToastMsg from "../components/ToastMsg";
 import { GAME_ASSET } from "../assets";
 import { PLAYGROUND_CONFIGURATION } from "../config/constants";
+import Player from "./Player";
+import Treat from "./Treat";
 
 const berryPositions = [
   { x: 450, y: 0 },
@@ -120,42 +122,8 @@ const PlayGroundContainer = () => {
               position: "relative",
             }}
           >
-            <Box
-              sx={{
-                width: PLAYGROUND_CONFIGURATION.playerWidth,
-                height: PLAYGROUND_CONFIGURATION.playerHeight,
-                left: playerPosition.x,
-                top: playerPosition.y,
-                position: "absolute",
-              }}
-            >
-              <img
-                src={GAME_ASSET.metapodImg}
-                alt="pokemon metapod"
-                width="100%"
-                height="100%"
-                style={{
-                  WebkitTransform: `scaleX(${playerPosition.scale})`,
-                  transform: `scaleX(${playerPosition.scale})`,
-                }}
-              />
-            </Box>
-            <Box
-              sx={{
-                width: 50,
-                height: 50,
-                left: berryPosition.x,
-                top: berryPosition.y,
-                position: "absolute",
-              }}
-            >
-              <img
-                src={GAME_ASSET.hopoBerryImg}
-                alt="hopo berry"
-                width="100%"
-                height="100%"
-              />
-            </Box>
+            <Player playerPosition={playerPosition}/>
+            <Treat berryPosition={berryPosition}/>
           </Grid>
         </Grid>
       </Box>

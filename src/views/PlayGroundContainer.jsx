@@ -1,10 +1,9 @@
 import { useEffect, useState } from "react";
-import { Box, Grid } from "@mui/material";
-import { PLAYGROUND_CONFIGURATION } from "./config/constants";
-import ToastMsg from "./components/ToastMsg";
 import { Link } from "react-router-dom";
-import metapodImg from "./assets/metapod_img.png";
-import hopoBerryImg from "./assets/hopo_berry.png";
+import { Box, Grid } from "@mui/material";
+import ToastMsg from "../components/ToastMsg";
+import { GAME_ASSET } from "../assets";
+import { PLAYGROUND_CONFIGURATION } from "../config/constants";
 
 const berryPositions = [
   { x: 450, y: 0 },
@@ -131,7 +130,7 @@ const PlayGroundContainer = () => {
               }}
             >
               <img
-                src={metapodImg}
+                src={GAME_ASSET.metapodImg}
                 alt="pokemon metapod"
                 width="100%"
                 height="100%"
@@ -151,7 +150,7 @@ const PlayGroundContainer = () => {
               }}
             >
               <img
-                src={hopoBerryImg}
+                src={GAME_ASSET.hopoBerryImg}
                 alt="hopo berry"
                 width="100%"
                 height="100%"

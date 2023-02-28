@@ -1,6 +1,6 @@
 import { Route, Routes } from 'react-router-dom'
-import PlayGroundContainer from './PlayGroundContainer'
-import ViteLandingPage from './ViteLandingPage'
+import PlayGroundContainer from './views/PlayGroundContainer'
+import ViteLandingPage from './views/ViteLandingPage'
 
 function App() {
 

@@ -1,15 +1,17 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import './App.css'
-import { Box } from '@mui/material'
-import { Link } from 'react-router-dom'
+import { useState } from "react";
+import reactLogo from "../assets/react.svg";
+import "../App.css";
+import { Box } from "@mui/material";
+import { Link } from "react-router-dom";
 
 const ViteLandingPage = () => {
   const [count, setCount] = useState(0);
 
   return (
     <div className="App">
-      <div ><Link to="/playground">To Playground</Link></div>
+      <div>
+        <Link to="/playground">To Playground</Link>
+      </div>
       <div>
         <a href="https://vitejs.dev" target="_blank">
           <img src="/vite.svg" className="logo" alt="Vite logo" />
@@ -32,7 +34,7 @@ const ViteLandingPage = () => {
         Click on the Vite and React logos to learn more
       </p>
     </div>
-  )
-}
+  );
+};
 
 export default ViteLandingPage;

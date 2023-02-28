@@ -6,6 +6,7 @@ import { GAME_ASSET } from "../assets";
 import { PLAYGROUND_CONFIGURATION } from "../config/constants";
 import Player from "./Player";
 import Treat from "./Treat";
+import PokemonSearch from "./PokemonSearch";
 
 const berryPositions = [
   { x: 450, y: 0 },
@@ -127,6 +128,8 @@ const PlayGroundContainer = () => {
           </Grid>
         </Grid>
       </Box>
+
+      <PokemonSearch/>
     </>
   );
 };

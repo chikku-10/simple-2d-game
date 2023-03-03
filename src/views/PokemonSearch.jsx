@@ -76,7 +76,7 @@ const PokemonSearch = ({setIsTyping}) => {
       <Box display="flex" justifyContent="center" mt={3}>
         <TextField
           id="outlined-basic"
-          label="Outlined"
+          label="Search..."
           variant="outlined"
           onChange={handleInputChange}
           onBlur={() => setIsTyping(false)}

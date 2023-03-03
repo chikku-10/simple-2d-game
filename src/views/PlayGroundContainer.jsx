@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, Grid } from "@mui/material";
 import ToastMsg from "../components/ToastMsg";
-import { GAME_ASSET } from "../assets";
 import { PLAYGROUND_CONFIGURATION } from "../config/constants";
 import Player from "./Player";
 import Treat from "./Treat";
@@ -104,7 +103,7 @@ const PlayGroundContainer = () => {
 
   return (
     <>
-      <Link to="/">Go Back</Link>
+      <Link to="/landingPage">To Landing Page</Link>
       <Box>Berry Count {berryCount}</Box>
       {!!showToastMessage && (
         <ToastMsg

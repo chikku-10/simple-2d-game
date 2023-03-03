@@ -10,7 +10,7 @@ const ViteLandingPage = () => {
   return (
     <div className="App">
       <div>
-        <Link to="/playground">To Playground</Link>
+        <Link to="/">To Playground</Link>
       </div>
       <div>
         <a href="https://vitejs.dev" target="_blank">

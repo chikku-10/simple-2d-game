@@ -112,24 +112,28 @@ const PlayGroundContainer = () => {
           handleClose={() => setShowToastMessage("")}
         />
       )}
-      <Box sx={{ border: "2px solid #964B00" }}>
-        <Grid container justifyContent="center" alignItems="center">
-          <Grid
-            item
-            sx={{
-              width: PLAYGROUND_CONFIGURATION.width,
-              height: PLAYGROUND_CONFIGURATION.height,
-              backgroundColor: "grey",
-              position: "relative",
-            }}
-          >
-            <Player playerPosition={playerPosition}/>
-            <Treat berryPosition={berryPosition}/>
-          </Grid>
+      <Grid container justifyContent="space-between">
+        <Grid item md={6} xs={12}>
+            <Grid container justifyContent="center" alignItems="center" >
+              <Grid
+                item
+                sx={{
+                  minWidth: PLAYGROUND_CONFIGURATION.width,
+                  height: PLAYGROUND_CONFIGURATION.height,
+                  backgroundColor: "grey",
+                  position: "relative",
+                  border: "2px solid #964B00"
+                }}
+              >
+                <Player playerPosition={playerPosition} />
+                <Treat berryPosition={berryPosition} />
+              </Grid>
+            </Grid>
         </Grid>
-      </Box>
-
-      <PokemonSearch/>
+        <Grid item md={6} xs={12}>
+          <PokemonSearch />
+        </Grid>
+      </Grid>
     </>
   );
 };

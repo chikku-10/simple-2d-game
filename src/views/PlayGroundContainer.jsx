@@ -27,6 +27,7 @@ const PlayGroundContainer = () => {
   const [berryPosition, setBerryPosition] = useState(berryPositions[0]);
   const [berryCount, setBerryCount] = useState(0);
   const [showToastMessage, setShowToastMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
@@ -36,12 +37,12 @@ const PlayGroundContainer = () => {
       console.log("keydown event removed");
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [berryPosition]);
+  }, [berryPosition, isTyping]);
 
   const handleKeyDown = (event) => {
     //check for only arrow keys
     //movement of the player is an increment of width of the player
-
+    if(isTyping) return;
     switch (event.key) {
       case "ArrowLeft":
         handlePlayerPositionUpdate(-PLAYGROUND_CONFIGURATION.playerWidth, 0, 1);
@@ -112,24 +113,28 @@ const PlayGroundContainer = () => {
           handleClose={() => setShowToastMessage("")}
         />
       )}
-      <Box sx={{ border: "2px solid #964B00" }}>
-        <Grid container justifyContent="center" alignItems="center">
-          <Grid
-            item
-            sx={{
-              width: PLAYGROUND_CONFIGURATION.width,
-              height: PLAYGROUND_CONFIGURATION.height,
-              backgroundColor: "grey",
-              position: "relative",
-            }}
-          >
-            <Player playerPosition={playerPosition}/>
-            <Treat berryPosition={berryPosition}/>
-          </Grid>
+      <Grid container justifyContent="space-between">
+        <Grid item md={6} xs={12}>
+            <Grid container justifyContent="center" alignItems="center" >
+              <Grid
+                item
+                sx={{
+                  minWidth: PLAYGROUND_CONFIGURATION.width,
+                  height: PLAYGROUND_CONFIGURATION.height,
+                  backgroundColor: "grey",
+                  position: "relative",
+                  border: "2px solid #964B00"
+                }}
+              >
+                <Player playerPosition={playerPosition} />
+                <Treat berryPosition={berryPosition} />
+              </Grid>
+            </Grid>
         </Grid>
-      </Box>
-
-      <PokemonSearch/>
+        <Grid item md={6} xs={12}>
+          <PokemonSearch setIsTyping={setIsTyping}/>
+        </Grid>
+      </Grid>
     </>
   );
 };

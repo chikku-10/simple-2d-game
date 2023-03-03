@@ -14,14 +14,13 @@ function App() {
   */
 
   return (
-    <div>
+    <main>
       <Routes>
         <Route path="/playground" element={<PlayGroundContainer/>} />
         {/* <Route path="/" element={<ViteLandingPage/>} /> */}
         <Route index element={<ViteLandingPage/>} />
-
       </Routes>
-    </div>
+    </main>
   )
 }
 

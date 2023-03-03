@@ -27,6 +27,7 @@ const PlayGroundContainer = () => {
   const [berryPosition, setBerryPosition] = useState(berryPositions[0]);
   const [berryCount, setBerryCount] = useState(0);
   const [showToastMessage, setShowToastMessage] = useState("");
+  const [isTyping, setIsTyping] = useState(false);
 
   useEffect(() => {
     window.addEventListener("keydown", handleKeyDown);
@@ -36,12 +37,12 @@ const PlayGroundContainer = () => {
       console.log("keydown event removed");
       window.removeEventListener("keydown", handleKeyDown);
     };
-  }, [berryPosition]);
+  }, [berryPosition, isTyping]);
 
   const handleKeyDown = (event) => {
     //check for only arrow keys
     //movement of the player is an increment of width of the player
-
+    if(isTyping) return;
     switch (event.key) {
       case "ArrowLeft":
         handlePlayerPositionUpdate(-PLAYGROUND_CONFIGURATION.playerWidth, 0, 1);
@@ -131,7 +132,7 @@ const PlayGroundContainer = () => {
             </Grid>
         </Grid>
         <Grid item md={6} xs={12}>
-          <PokemonSearch />
+          <PokemonSearch setIsTyping={setIsTyping}/>
         </Grid>
       </Grid>
     </>

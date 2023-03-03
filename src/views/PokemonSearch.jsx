@@ -4,13 +4,14 @@ import SearchIcon from "@mui/icons-material/Search";
 import axios from "axios";
 import ToastMsg from "../components/ToastMsg";
 
-const PokemonSearch = () => {
+const PokemonSearch = ({setIsTyping}) => {
   const searchValue = useRef(null);
   const [errorMsg, setErrorMsg] = useState("");
   const [pokemonData, setPokemonData] = useState(null);
   const [loading, setLoading] = useState(false);
 
   const handleInputChange = (e) => {
+    setIsTyping(true);
     searchValue.current = e.target.value;
   };
 
@@ -52,6 +53,8 @@ const PokemonSearch = () => {
           label="Outlined"
           variant="outlined"
           onChange={handleInputChange}
+          onBlur={() => setIsTyping(false)}
+          onClick={() => setIsTyping(true)}
         />
         <Box mt={2} ml={2}>
           <SearchIcon sx={{ cursor: "pointer" }} onClick={getPokemonData} />

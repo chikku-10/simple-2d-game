@@ -10,11 +10,6 @@ const PokemonSearch = ({setIsTyping}) => {
   const [pokemonData, setPokemonData] = useState(null);
   const [loading, setLoading] = useState(false);
 
-  const handleInputChange = (e) => {
-    setIsTyping(true);
-    searchValue.current = e.target.value;
-  };
-
   const getPokemonData = async () => {
     try {
       setLoading(true);
@@ -25,13 +20,31 @@ const PokemonSearch = ({setIsTyping}) => {
       }
       const responseData = await axios.get(
         `https://pokeapi.co/api/v2/pokemon/${searchValue.current.toLowerCase()}`
-      );
+      ).catch(function (error) {
+        if (error.response) {
+          // The request was made and the server responded with a status code
+          // that falls out of the range of 2xx
+          console.log(error.response.data);
+          console.log(error.response.status);
+          console.log(error.response.headers);
+          setErrorMsg("No data found. Please try again.");
+        } else if (error.request) {
+          // The request was made but no response was received
+          // `error.request` is an instance of XMLHttpRequest in the browser and an instance of
+          // http.ClientRequest in node.js
+          console.log(error.request);
+          setErrorMsg("Failed to get the data. Please try again later");
+        } else {
+          // Something happened in setting up the request that triggered an Error
+          console.log('error in request', error.message);
+        }
+        console.log(error.config);
+      });
       console.log("responseData", responseData);
       if (responseData.status === 200) {
-        setPokemonData({name: responseData.data.species.name, url : responseData.data.sprites.front_shiny});
+        setPokemonData({name: responseData.data.species.name, url : responseData.data.sprites.other["official-artwork"].front_default});
       } else {
         setErrorMsg("Failed to get the data. Please try again later");
-        throw new Error("Failed to get the data. Please try again later");
       }
     } catch (e) {
       console.log("error", e);
@@ -39,6 +52,19 @@ const PokemonSearch = ({setIsTyping}) => {
       setLoading(false);
     }
   };
+
+  const handleInputChange = (e) => {
+    setIsTyping(true);
+    searchValue.current = e.target.value;
+  };
+
+  const handleKeyDown = (e) => {
+    //search using enter key
+    if(e.key === "Enter"){
+        getPokemonData();
+    }
+    return;
+  }
 
   return (
     <>
@@ -55,6 +81,7 @@ const PokemonSearch = ({setIsTyping}) => {
           onChange={handleInputChange}
           onBlur={() => setIsTyping(false)}
           onClick={() => setIsTyping(true)}
+          onKeyDown={handleKeyDown}
         />
         <Box mt={2} ml={2}>
           <SearchIcon sx={{ cursor: "pointer" }} onClick={getPokemonData} />
@@ -68,7 +95,7 @@ const PokemonSearch = ({setIsTyping}) => {
           {pokemonData && (
             <Box>
               <Box>Pokemon Name : {pokemonData.name.toUpperCase()}</Box>
-              <img src={pokemonData.url} alt="pokemon" />
+              <img src={pokemonData.url} alt="pokemon" width="400px" height="400px"/>
             </Box>
           )}
         </Box>

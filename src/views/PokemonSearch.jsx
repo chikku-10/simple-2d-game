@@ -74,7 +74,7 @@ const PokemonSearch = ({setIsTyping}) => {
         message={errorMsg}
       />
       <Box display="flex" justifyContent="center" alignItems="center" mt={3}>
-        <Box mr={1}>Search for Your Pokemon :</Box>
+        <Box mr={1}>Search for your favourite Pokemon :</Box>
         <TextField
           id="outlined-basic"
           placeholder="Seach..."

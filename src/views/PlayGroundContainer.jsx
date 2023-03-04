@@ -101,6 +101,8 @@ const PlayGroundContainer = () => {
             yIndex += 1;
           } else if (yIndex + 1 > maxIndex) {
             yIndex -= 1;
+          } else {
+            xIndex += 1
           }
         }
 

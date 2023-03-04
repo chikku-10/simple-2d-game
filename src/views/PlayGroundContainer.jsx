@@ -7,23 +7,13 @@ import Player from "./Player";
 import Treat from "./Treat";
 import PokemonSearch from "./PokemonSearch";
 
-const berryPositions = [
-  { x: 450, y: 0 },
-  { x: 350, y: 0 },
-  { x: 50, y: 250 },
-  { x: 250, y: 250 },
-  { x: 350, y: 0 },
-  { x: 350, y: 400 },
-  { x: 0, y: 0 },
-];
-
 const PlayGroundContainer = () => {
   const [playerPosition, setPlayerPosition] = useState({
     x: 0,
     y: 0,
     scale: -1,
   });
-  const [berryPosition, setBerryPosition] = useState(berryPositions[0]);
+  const [berryPosition, setBerryPosition] = useState({ x: 450, y: 0 });
   const [berryCount, setBerryCount] = useState(0);
   const [showToastMessage, setShowToastMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -93,6 +83,8 @@ const PlayGroundContainer = () => {
         let xIndex = Math.floor(Math.random() * maxIndex + 1);
         let yIndex = Math.floor(Math.random() * maxIndex + 1);
 
+        console.log("x:", xIndex, "y:", yIndex);
+
         let xCoordinate = xIndex * PLAYGROUND_CONFIGURATION.playerWidth;
         let yCoordinate = yIndex * PLAYGROUND_CONFIGURATION.playerWidth;
 
@@ -101,11 +93,11 @@ const PlayGroundContainer = () => {
           berryPosition.y === yCoordinate
         ) {
           //same at same position
-          if (xIndex - 1 <= 0) {
+          if (xIndex - 1 < 0) {
             xIndex += 1;
           } else if (xIndex + 1 > maxIndex) {
             xIndex -= 1;
-          } else if (yIndex - 1 <= 0) {
+          } else if (yIndex - 1 < 0) {
             yIndex += 1;
           } else if (yIndex + 1 > maxIndex) {
             yIndex -= 1;

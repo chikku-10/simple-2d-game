@@ -73,15 +73,17 @@ const PokemonSearch = ({setIsTyping}) => {
         handleClose={() => setErrorMsg(false)}
         message={errorMsg}
       />
-      <Box display="flex" justifyContent="center" mt={3}>
+      <Box display="flex" justifyContent="center" alignItems="center" mt={3}>
+        <Box mr={1}>Search for Your Pokemon :</Box>
         <TextField
           id="outlined-basic"
-          label="Search..."
+          placeholder="Seach..."
           variant="outlined"
           onChange={handleInputChange}
           onBlur={() => setIsTyping(false)}
           onClick={() => setIsTyping(true)}
           onKeyDown={handleKeyDown}
+          size="small"
         />
         <Box mt={2} ml={2}>
           <SearchIcon sx={{ cursor: "pointer" }} onClick={getPokemonData} />

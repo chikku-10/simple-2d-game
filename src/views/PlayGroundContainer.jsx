@@ -122,8 +122,10 @@ const PlayGroundContainer = () => {
 
   return (
     <>
+    <Box mb={2}>
       <Link to="/landingPage">To Landing Page</Link>
-      <Box>Berry Count {berryCount}</Box>
+    </Box>
+      <Box mb={2}>Berry Count : <Box component="span" sx={{color:"red", fontWeight: 900}}>{berryCount}</Box></Box>
       {!!showToastMessage && (
         <ToastMsg
           open={!!showToastMessage}

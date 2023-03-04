@@ -2,21 +2,10 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { Box, Grid } from "@mui/material";
 import ToastMsg from "../components/ToastMsg";
-import { GAME_ASSET } from "../assets";
 import { PLAYGROUND_CONFIGURATION } from "../config/constants";
 import Player from "./Player";
 import Treat from "./Treat";
 import PokemonSearch from "./PokemonSearch";
-
-const berryPositions = [
-  { x: 450, y: 0 },
-  { x: 350, y: 0 },
-  { x: 50, y: 250 },
-  { x: 250, y: 250 },
-  { x: 350, y: 0 },
-  { x: 350, y: 400 },
-  { x: 0, y: 0 },
-];
 
 const PlayGroundContainer = () => {
   const [playerPosition, setPlayerPosition] = useState({
@@ -24,7 +13,7 @@ const PlayGroundContainer = () => {
     y: 0,
     scale: -1,
   });
-  const [berryPosition, setBerryPosition] = useState(berryPositions[0]);
+  const [berryPosition, setBerryPosition] = useState({ x: 450, y: 0 });
   const [berryCount, setBerryCount] = useState(0);
   const [showToastMessage, setShowToastMessage] = useState("");
   const [isTyping, setIsTyping] = useState(false);
@@ -34,7 +23,7 @@ const PlayGroundContainer = () => {
 
     // cleanup this component
     return () => {
-      console.log("keydown event removed");
+      console.log("keydown event removed-------------");
       window.removeEventListener("keydown", handleKeyDown);
     };
   }, [berryPosition, isTyping]);
@@ -42,7 +31,7 @@ const PlayGroundContainer = () => {
   const handleKeyDown = (event) => {
     //check for only arrow keys
     //movement of the player is an increment of width of the player
-    if(isTyping) return;
+    if (isTyping) return;
     switch (event.key) {
       case "ArrowLeft":
         handlePlayerPositionUpdate(-PLAYGROUND_CONFIGURATION.playerWidth, 0, 1);
@@ -80,19 +69,46 @@ const PlayGroundContainer = () => {
         setShowToastMessage("You have reached the wall.");
         return prevVal;
       }
+      //berry and player at same position
       if (
         updatedValue.x === berryPosition.x &&
         updatedValue.y === berryPosition.y
       ) {
-        let index = Math.floor(Math.random() * 5 + 1);
+        //updating next berry position
+        const maxIndex =
+          PLAYGROUND_CONFIGURATION.width /
+            PLAYGROUND_CONFIGURATION.playerWidth -
+          2;
+        console.log("maxIndex", maxIndex);
+        let xIndex = Math.floor(Math.random() * maxIndex + 1);
+        let yIndex = Math.floor(Math.random() * maxIndex + 1);
+
+        console.log("x:", xIndex, "y:", yIndex);
+
+        let xCoordinate = xIndex * PLAYGROUND_CONFIGURATION.playerWidth;
+        let yCoordinate = yIndex * PLAYGROUND_CONFIGURATION.playerWidth;
+
         if (
-          berryPosition.x === berryPositions[index].x &&
-          berryPosition.y === berryPositions[index].y
+          berryPosition.x === xCoordinate &&
+          berryPosition.y === yCoordinate
         ) {
-          index += 1;
+          //same at same position
+          if (xIndex - 1 < 0) {
+            xIndex += 1;
+          } else if (xIndex + 1 > maxIndex) {
+            xIndex -= 1;
+          } else if (yIndex - 1 < 0) {
+            yIndex += 1;
+          } else if (yIndex + 1 > maxIndex) {
+            yIndex -= 1;
+          }
         }
+
+        xCoordinate = xIndex * PLAYGROUND_CONFIGURATION.playerWidth;
+        yCoordinate = yIndex * PLAYGROUND_CONFIGURATION.playerWidth;
+
         setBerryCount((currentCount) => currentCount + 1);
-        setBerryPosition(berryPositions[index]);
+        setBerryPosition({ x: xCoordinate, y: yCoordinate });
       }
       return {
         x: prevVal.x + xVal,
@@ -104,7 +120,7 @@ const PlayGroundContainer = () => {
 
   return (
     <>
-      <Link to="/">Go Back</Link>
+      <Link to="/landingPage">To Landing Page</Link>
       <Box>Berry Count {berryCount}</Box>
       {!!showToastMessage && (
         <ToastMsg
@@ -115,24 +131,24 @@ const PlayGroundContainer = () => {
       )}
       <Grid container justifyContent="space-between">
         <Grid item md={6} xs={12}>
-            <Grid container justifyContent="center" alignItems="center" >
-              <Grid
-                item
-                sx={{
-                  minWidth: PLAYGROUND_CONFIGURATION.width,
-                  height: PLAYGROUND_CONFIGURATION.height,
-                  backgroundColor: "grey",
-                  position: "relative",
-                  border: "2px solid #964B00"
-                }}
-              >
-                <Player playerPosition={playerPosition} />
-                <Treat berryPosition={berryPosition} />
-              </Grid>
+          <Grid container justifyContent="center" alignItems="center">
+            <Grid
+              item
+              sx={{
+                minWidth: PLAYGROUND_CONFIGURATION.width,
+                height: PLAYGROUND_CONFIGURATION.height,
+                backgroundColor: "grey",
+                position: "relative",
+                border: "2px solid #964B00",
+              }}
+            >
+              <Player playerPosition={playerPosition} />
+              <Treat berryPosition={berryPosition} />
             </Grid>
+          </Grid>
         </Grid>
         <Grid item md={6} xs={12}>
-          <PokemonSearch setIsTyping={setIsTyping}/>
+          <PokemonSearch setIsTyping={setIsTyping} />
         </Grid>
       </Grid>
     </>

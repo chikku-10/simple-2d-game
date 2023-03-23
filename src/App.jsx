@@ -18,7 +18,7 @@ function App() {
       <Routes>
         <Route index path="/" element={<PlayGroundContainer/>} />
         {/* <Route path="/" element={<ViteLandingPage/>} /> */}
-        <Route index path="/landingPage" element={<ViteLandingPage/>} />
+        <Route  path="/landingPage" element={<ViteLandingPage/>} />
       </Routes>
     </main>
   )
